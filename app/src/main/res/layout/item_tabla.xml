@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1"
+    android:baselineAligned="false">
+
+    <TextView
+        android:id="@+id/cantidad_grid"
+        android:layout_width="match_parent"
+        android:layout_height="58dp"
+        android:text="65"
+        android:fontFamily="sans-serif"
+        android:textSize="65dp"
+        android:layout_weight="0.08" />
+
+    <TextView
+        android:id="@+id/dia_grid"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_weight="0.32"
+        android:fontFamily="sans-serif"
+        android:text="VIERNES"
+        android:textAlignment="center"
+        android:textScaleX="1.3"
+        android:textSize="42dp" />
+</LinearLayout>

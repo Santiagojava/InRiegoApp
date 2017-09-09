@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#013572"
+    android:background="#ffffff"
     tools:context="com.example.santi.inriegoapp.MainActivity">
 
     <EditText
@@ -18,7 +18,8 @@
         android:layout_marginStart="8dp"
         android:hint="USUARIO"
         android:inputType="text"
-        android:textColorHint="#78889f"
+        android:fontFamily="sans-serif"
+        android:textColorHint="#013572"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -37,7 +38,8 @@
         android:ems="10"
         android:hint="CONTRASEÑA"
         android:inputType="textPassword"
-        android:textColorHint="#78889f"
+        android:fontFamily="sans-serif"
+        android:textColorHint="#013572"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nombre"
         tools:layout_constraintLeft_creator="1"
@@ -60,6 +62,7 @@
         android:layout_width="356dp"
         android:layout_height="50dp"
         android:text="ENTRAR"
+        android:fontFamily="sans-serif"
         android:layout_marginRight="8dp"
         android:background="@drawable/shape"
         android:textSize="20sp"
