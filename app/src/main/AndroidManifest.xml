@@ -16,6 +16,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".EstablecimientoActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.Establecimiento" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <uses-permission android:name="android.permission.INTERNET" >
+        </uses-permission>
+        <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" >
+        </uses-permission>
         <service android:name=".SegundoPlano"></service>
     </application>
 

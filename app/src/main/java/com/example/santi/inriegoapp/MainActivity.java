@@ -1,40 +1,60 @@
 package com.example.santi.inriegoapp;
 
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
+import android.content.res.AssetManager;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
+
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
 
 public class MainActivity extends AppCompatActivity {
     Button entrar;
-    Context thiscontext;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        thiscontext = this;
-        //PRUEBA DE SERVICIO BACKGROUND
-        //startService(new Intent(thiscontext,SegundoPlano.class));
         entrar=(Button)findViewById(R.id.entrar);
+        Properties properties = new Properties();;
+
+        AssetManager assetManager = getAssets();
+        InputStream inputStream = null;
+        try {
+            inputStream = assetManager.open("propiedades");
+            properties.load(inputStream);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+      String hora=  properties.getProperty("hora");
+        NotificationCompat.Builder mBuilder =
+                new NotificationCompat.Builder(this)
+                        .setSmallIcon(R.drawable.ic_not)
+                        .setContentTitle("Mi Aplicacion")
+                        .setContentText(hora);
+
+        NotificationManager mNotificationManager = (NotificationManager)this.getSystemService(Context.NOTIFICATION_SERVICE);
+
+        int notificacion_id = 2345;
+        int icon = R.drawable.ic_not;
+        CharSequence tickerText = "Notification Bar";
+        long when = System.currentTimeMillis();
+        Notification notification =mBuilder.build();
+        mNotificationManager.notify(notificacion_id,notification);
+
         entrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                BaseSQLiteHelper dbbase = new BaseSQLiteHelper(MainActivity.this,"DBSync",null, 1);
-                SQLiteDatabase db = dbbase.getWritableDatabase();
-                String s = "Primer Prueba";
-                db.execSQL("INSERT INTO DatosJson (json) VALUES('"+ s +"')");
-                db.close();
-                Toast.makeText(MainActivity.this,"Se insertado correctamente en la base",Toast.LENGTH_SHORT).show();
-                /*Intent intent = new Intent(MainActivity.this, EstablecimientoActivity.class);
-                startActivity(intent);*/
-
-                //PRUEBA DE SERVICIO BACKGROUND
-                //stopService(new Intent(thiscontext,SegundoPlano.class));
+                Intent hola = new Intent(getApplicationContext(), EstablecimientoActivity.class);
+                startActivity(hola);
             }
         });;
     }
