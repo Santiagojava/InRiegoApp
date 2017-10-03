@@ -23,11 +23,18 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <uses-permission android:name="android.permission.INTERNET" >
-        </uses-permission>
-        <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" >
-        </uses-permission>
+        <activity android:name=".EnvioMailActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.Mail" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
         <service android:name=".SegundoPlano"></service>
     </application>
-
+    <uses-permission android:name="android.permission.INTERNET" >
+    </uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" >
+    </uses-permission>
 </manifest>
