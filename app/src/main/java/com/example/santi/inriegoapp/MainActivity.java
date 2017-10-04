@@ -5,6 +5,7 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.AssetManager;
+import android.os.AsyncTask;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -41,15 +42,6 @@ public class MainActivity extends AppCompatActivity {
                         .setContentTitle("Mi Aplicacion")
                         .setContentText(hora);
 
-        NotificationManager mNotificationManager = (NotificationManager)this.getSystemService(Context.NOTIFICATION_SERVICE);
-
-        int notificacion_id = 2345;
-        int icon = R.drawable.ic_not;
-        CharSequence tickerText = "Notification Bar";
-        long when = System.currentTimeMillis();
-        Notification notification =mBuilder.build();
-        mNotificationManager.notify(notificacion_id,notification);
-
         entrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -57,5 +49,27 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(hola);
             }
         });;
+    }
+    public class Clase1 extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... params) {
+            return null;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+        }
+
+        @Override
+        protected void onProgressUpdate(Void... values) {
+            super.onProgressUpdate(values);
+        }
     }
 }

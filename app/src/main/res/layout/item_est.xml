@@ -11,17 +11,20 @@
         android:id="@+id/est_nombre"
         android:layout_width="259dp"
         android:layout_height="70dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="0dp"
+        android:fontFamily="sans-serif"
+        android:gravity="center"
+        android:lineSpacingExtra="10sp"
         android:text="Establecimiento 1"
         android:textAlignment="center"
-        android:textSize="25dp"
-        android:gravity="center"
         android:textColor="#000000"
-        tools:layout_constraintTop_creator="1"
-        tools:layout_constraintLeft_creator="1"
+        android:textSize="25dp"
+        android:typeface="serif"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginLeft="0dp"
-        android:layout_marginTop="0dp" />
+        tools:layout_constraintLeft_creator="1"
+        tools:layout_constraintTop_creator="1" />
 
     <ImageView
         android:id="@+id/imageView"

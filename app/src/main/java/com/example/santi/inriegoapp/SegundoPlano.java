@@ -28,8 +28,8 @@ public class SegundoPlano extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flag ,int idProcess ) {
-        mp = MediaPlayer.create(thiscontext,R.raw.oasis);
-        mp.start();
+    /*    mp = MediaPlayer.create(thiscontext,R.raw.oasis);
+        mp.start();*/
         return START_STICKY;
     }
 
