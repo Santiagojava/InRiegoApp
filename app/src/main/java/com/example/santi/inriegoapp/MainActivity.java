@@ -5,6 +5,7 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.AssetManager;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +13,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.santi.inriegoapp.Objects.Establecimiento;
@@ -36,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     Button entrar;
     EditText User;
     EditText Pass;
+    TextView Error;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,7 +47,11 @@ public class MainActivity extends AppCompatActivity {
         Properties properties = new Properties();;
     User= (EditText) findViewById(R.id.nombre);
         Pass= (EditText) findViewById(R.id.contraseña);
-
+        Error= (TextView) findViewById(R.id.Error);
+        Typeface face = Typeface.createFromAsset(getAssets(), "Raleway-Medium.ttf");
+    User.setTypeface(face);
+        Pass.setTypeface(face);
+        Error.setTypeface(face);
         AssetManager assetManager = getAssets();
         InputStream inputStream = null;
         try {
@@ -107,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String s) {
             if(s=="")
-                Toast.makeText(MainActivity.this, "Datos no validos", Toast.LENGTH_LONG).show();
+                Error.setText("Datos no validos");
             else {
                 try {
                     JSONObject js = new JSONObject(s);
@@ -127,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
                         hola.putExtra("extra",a);
                         startActivity(hola);
                     } else {
-                        Toast.makeText(MainActivity.this, "Usuario o Contraseña Incorrectos", Toast.LENGTH_LONG).show();
+                        Error.setText("Datos Incorrectos");
                     }
 
 
