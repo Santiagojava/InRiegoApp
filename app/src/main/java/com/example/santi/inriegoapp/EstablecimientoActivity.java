@@ -15,6 +15,9 @@ import android.widget.TextView;
 import com.example.santi.inriegoapp.Adapters.EstablecimientoAdapter;
 import com.example.santi.inriegoapp.Objects.Establecimiento;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +31,7 @@ Establecimiento a=new Establecimiento("San Jose");
     ArrayList<Establecimiento> l=new ArrayList<Establecimiento>();
     Typeface face;
     TextView title;
+    ArrayList<String> Str=new ArrayList<>();
 
 
     @Override
@@ -35,9 +39,16 @@ Establecimiento a=new Establecimiento("San Jose");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.establecimiento);
    face= Typeface.createFromAsset(getAssets(),"Raleway-Light.ttf");
-
-        l.add(a);
-        l.add(b);
+Str=getIntent().getBundleExtra("extra").getStringArrayList("farms");
+        for (String f:Str) {
+            Establecimiento e=new Establecimiento();
+            try {
+            e.JsonParser(new JSONObject(f));
+                l.add(e);
+            } catch (JSONException e1) {
+                e1.printStackTrace();
+            }
+        }
         EstablecimientoAdapter ad=new EstablecimientoAdapter(this,l,face);
         face=Typeface.createFromAsset(getAssets(),"Lato-Semibold.ttf");
         title= (TextView) findViewById(R.id.Title_Establecimiento);
@@ -48,4 +59,3 @@ Establecimiento a=new Establecimiento("San Jose");
 
     }
 }
-

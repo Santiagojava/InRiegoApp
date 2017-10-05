@@ -1,4 +1,4 @@
-package com.example.santi.inriegoapp;
+ package com.example.santi.inriegoapp;
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -14,6 +14,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.santi.inriegoapp.Objects.Establecimiento;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -27,6 +29,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Properties;
 
 public class MainActivity extends AppCompatActivity {
@@ -109,7 +112,19 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     JSONObject js = new JSONObject(s);
                     if (js.get("IsOk").toString() == "true") {
+                        ArrayList <Establecimiento> est=new ArrayList<>();
+                        JSONObject farm=js.getJSONObject("Data");
+                        JSONArray farms=farm.getJSONArray("Farms");
+
+                        Bundle  a =new Bundle();
+    ArrayList<String> farmsS = new ArrayList<>();
+                        for(int i=0;i<farms.length();i++){
+                           farmsS.add(farms.get(i).toString());
+                        }
+                        a.putStringArrayList("farms",farmsS);
+
                         Intent hola = new Intent(getApplicationContext(), EstablecimientoActivity.class);
+                        hola.putExtra("extra",a);
                         startActivity(hola);
                     } else {
                         Toast.makeText(MainActivity.this, "Usuario o Contraseña Incorrectos", Toast.LENGTH_LONG).show();
