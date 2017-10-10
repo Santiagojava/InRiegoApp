@@ -117,7 +117,8 @@ public class MainActivity extends AppCompatActivity {
                         JSONArray farms=farm.getJSONArray("Farms");
 
                         Bundle  a =new Bundle();
-    ArrayList<String> farmsS = new ArrayList<>();
+                        ArrayList<String> farmsS = new ArrayList<>();
+                        ArrayList<String> ids = new ArrayList<>();
                         for(int i=0;i<farms.length();i++){
                            farmsS.add(farms.get(i).toString());
                         }
@@ -125,6 +126,7 @@ public class MainActivity extends AppCompatActivity {
 
                         Intent hola = new Intent(getApplicationContext(), EstablecimientoActivity.class);
                         hola.putExtra("extra",a);
+                        hola.putExtra("token",farm.getString("Token"));
                         startActivity(hola);
                     } else {
                         Toast.makeText(MainActivity.this, "Usuario o Contraseña Incorrectos", Toast.LENGTH_LONG).show();
