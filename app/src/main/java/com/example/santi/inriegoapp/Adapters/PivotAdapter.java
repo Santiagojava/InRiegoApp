@@ -2,6 +2,7 @@ package com.example.santi.inriegoapp.Adapters;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,10 +21,12 @@ import java.util.ArrayList;
 public class PivotAdapter extends BaseAdapter {
     protected Activity activity;
     protected ArrayList<Pivot> Pivots;
+    protected Typeface face;
 
-    public PivotAdapter(Activity activity, ArrayList<Pivot> pivots) {
+    public PivotAdapter(Activity activity, ArrayList<Pivot> pivots, Typeface face) {
         this.activity = activity;
         Pivots = pivots;
+        this.face = face;
     }
 
     public Activity getActivity() {
@@ -44,17 +47,17 @@ public class PivotAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return 0;
+        return Pivots.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return null;
+        return Pivots.get(position);
     }
 
     @Override
     public long getItemId(int position) {
-        return 0;
+        return position;
     }
 
     @Override
@@ -70,6 +73,7 @@ public class PivotAdapter extends BaseAdapter {
         Pivot dir = Pivots.get(position);
 
         TextView title = (TextView) v.findViewById(R.id.pivot_nom);
+        title.setTypeface(face);
         title.setText(dir.getNombre());
 
         return v;

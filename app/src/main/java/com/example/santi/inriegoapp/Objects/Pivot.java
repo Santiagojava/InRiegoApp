@@ -1,5 +1,8 @@
 package com.example.santi.inriegoapp.Objects;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.Date;
 
 /**
@@ -36,5 +39,11 @@ public class Pivot {
 
     public void setFecha(Date fecha) {
         Fecha = fecha;
+    }
+
+    public void JsonParser(JSONObject js) throws JSONException {
+        this.setNombre(js.get("Name").toString());
+        this.setFenologia(js.get("Phenology").toString());
+        this.setFecha(new Date());
     }
 }
