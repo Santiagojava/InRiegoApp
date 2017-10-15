@@ -11,8 +11,10 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -47,7 +49,7 @@ Establecimiento a=new Establecimiento("San Jose");
     ArrayList<String> Str=new ArrayList<>();
     String token = "";
     String farmid = "";
-
+    String Nombre="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,20 +71,21 @@ Str=getIntent().getBundleExtra("extra").getStringArrayList("farms");
         face=Typeface.createFromAsset(getAssets(),"Lato-Semibold.ttf");
         title= (TextView) findViewById(R.id.Title_Establecimiento);
         title.setTypeface(face);
-        list      =(ListView)findViewById(R.id.list_esta);
+        list =(ListView)findViewById(R.id.list_esta);
         list.setAdapter(ad);
 
-        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        list.setOnItemClickListener(new OnItemClickListener() {
 
             @Override
-            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-                                    long arg3) {
-                // TODO Auto-generated method stub
-                //Log.v("TAG", "CLICKED row number: " + arg2);
-                Establecimiento seleccionado = (Establecimiento)list.getAdapter().getItem(arg2);
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.d("TAG", "CLICKED row number: " + position);
+                Establecimiento seleccionado = (Establecimiento)list.getAdapter().getItem(position);
                 farmid = String.valueOf(seleccionado.getId());
-                new Pivots().execute(token,farmid);
+              Nombre=seleccionado.getNombre();
+                new Pivots().execute(token,farmid,Nombre);
             }
+
+
 
         });
 
@@ -93,12 +96,12 @@ Str=getIntent().getBundleExtra("extra").getStringArrayList("farms");
 
 
     public class Pivots extends AsyncTask<String, Void, String> {
-
+String Nombre="";
         @Override
         protected String doInBackground(String... params) {
             String res = "";
             try {
-
+Nombre=params[2];
                 URL url = new URL("http://iradvisor.pgwwater.com.uy:9080/api/IrrigationData/token/" + params[0] + "/farmId/" + params[1] + "");
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("GET");
@@ -151,7 +154,9 @@ Str=getIntent().getBundleExtra("extra").getStringArrayList("farms");
                         hola.putExtra("extra",a);
                         hola.putExtra("token",token);
                         hola.putExtra("farmid",farmid);
+                        hola.putExtra("Establecimiento",Nombre);
                         startActivity(hola);
+
                     } else {
                         Toast.makeText(EstablecimientoActivity.this, "Error al cargar pivots, vuelva a intentar mas tarde", Toast.LENGTH_LONG).show();
                     }

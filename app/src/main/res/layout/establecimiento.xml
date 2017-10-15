@@ -12,13 +12,12 @@
     <TextView
         android:id="@+id/Title_Establecimiento"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:background="@android:color/background_light"
+        android:layout_height="43dp"
+        android:background="#143465"
         android:fontFamily="sans-serif"
         android:text="ELIJA UN ESTABLECIMIENTO"
         android:textAlignment="center"
-        android:textColor="#013572"
+        android:textColor="#fff"
         android:textSize="24sp"
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -30,10 +29,11 @@
         android:id="@+id/list_esta"
         style="@style/Widget.AppCompat.ListView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="310dp"
         android:layout_marginTop="45dp"
-        android:background="@android:color/background_light"
-        />
+        android:background="#fff"
+        android:divider="@android:color/background_dark"
+        android:dividerHeight="1dp" />
 
 
 </android.widget.LinearLayout>

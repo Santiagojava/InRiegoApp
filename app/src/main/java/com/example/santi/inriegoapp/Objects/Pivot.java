@@ -3,16 +3,18 @@ package com.example.santi.inriegoapp.Objects;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by KevinQ on 24/9/2017.
  */
 
-public class Pivot {
+public class Pivot implements Serializable{
     private String nombre;
     private String fenologia;
     private Date Fecha;
+
 
     public Pivot() {
     }

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/background_light"
+    android:orientation="vertical"
+    android:weightSum="1">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_agregarlluvia"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:background="#143465"
+        android:elevation="4dp"
+        android:minHeight="?attr/actionBarSize"
+        android:textAlignment="gravity"
+        android:theme="?attr/actionBarTheme"
+
+        android:visibility="visible"
+        app:navigationIcon="@drawable/navigation_left"
+        app:title="Establecimiento"></android.support.v7.widget.Toolbar>
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Fecha"
+        android:textAlignment="center"
+        android:textColor="@android:color/background_dark"
+        android:textSize="24sp"
+        tools:ignore="HardcodedText" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="1">
+
+        <EditText
+            android:id="@+id/Fecha_ll"
+            android:layout_width="242dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@android:color/background_dark"
+            android:ems="10"
+            android:enabled="false"
+            android:hint="dd/mm/aaaa"
+            android:inputType="date"
+            android:textAlignment="center"
+            android:textColor="@android:color/background_dark"
+            tools:ignore="HardcodedText" />
+
+        <ImageButton
+            android:id="@+id/bt_fecha_ll"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="#143465"
+            android:contentDescription="calendar"
+            android:src="@drawable/calendar_icon"
+            android:visibility="visible"
+
+            tools:ignore="HardcodedText" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.05"
+        android:text="Cantidad de mm"
+        android:textAlignment="center"
+        android:textColor="@android:color/background_dark"
+        android:textSize="24sp"
+        tools:ignore="HardcodedText" />
+
+    <EditText
+        android:id="@+id/editText3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@android:color/background_dark"
+        android:cursorVisible="true"
+        android:ems="10"
+        android:hint="mm"
+        android:inputType="number"
+        android:textAlignment="center"
+        android:textColor="@android:color/background_dark"
+        tools:ignore="HardcodedText" />
+
+    <ListView
+        android:id="@+id/lista_pivots_ll"
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="25dp"
+        android:layout_weight="0.87"
+        android:background="@drawable/border"
+        android:divider="#000000"
+        android:dividerHeight="1dp"
+        android:scrollbarAlwaysDrawHorizontalTrack="true"
+        android:listSelector="@color/check"  />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="match_parent"
+        android:layout_height="59dp"
+        android:layout_marginTop="25dp"
+        android:background="@drawable/button_green"
+        android:text="Confirmar"
+        android:textColor="#ffffff"
+        android:textSize="24sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/contraseña"
+        tools:ignore="HardcodedText" />
+
+</LinearLayout>

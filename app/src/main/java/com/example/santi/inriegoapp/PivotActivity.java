@@ -1,10 +1,14 @@
 package com.example.santi.inriegoapp;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -22,7 +26,7 @@ import java.util.Date;
  * Created by santi on 8/10/2017.
  */
 
-public class PivotActivity extends Activity {
+public class PivotActivity extends AppCompatActivity {
     Pivot a = new Pivot();
 
     ArrayList<Pivot> l = new ArrayList<Pivot>();
@@ -30,7 +34,9 @@ public class PivotActivity extends Activity {
     TextView title;
     private ListView list;
     ArrayList<String> Str = new ArrayList<>();
-
+Button bt;
+    Toolbar t;
+   String Nombre="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +44,7 @@ public class PivotActivity extends Activity {
         setContentView(R.layout.pivot);
         face= Typeface.createFromAsset(getAssets(),"Raleway-Light.ttf");
         Str=getIntent().getBundleExtra("extra").getStringArrayList("pivots");
+        Nombre=getIntent().getStringExtra("Establecimiento");
         for (String f:Str) {
             Pivot p=new Pivot();
             try {
@@ -64,5 +71,23 @@ public class PivotActivity extends Activity {
             }
 
         });
+        bt= (Button) findViewById(R.id.bt_Agregar_lluvia);
+        bt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent i =new Intent(PivotActivity.this ,AgregarLluviaActivity.class );
+               i.putExtra("pivots",l);
+                startActivity(i);
+            }
+        });
+        t= (Toolbar) findViewById(R.id.toolbar_pivots);
+        t.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+        t.setTitle(Nombre);
     }
 }

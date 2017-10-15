@@ -5,16 +5,18 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:weightSum="1">
+    android:weightSum="1"
+    android:descendantFocusability="blocksDescendants">
 
     <TextView
         android:id="@+id/est_nombre"
-        android:layout_width="259dp"
+        android:layout_width="295dp"
         android:layout_height="70dp"
         android:layout_marginLeft="0dp"
         android:layout_marginTop="0dp"
-        android:layout_weight="1.70"
         android:backgroundTint="@android:color/background_light"
+        android:clickable="false"
+        android:focusable="false"
         android:fontFamily="sans-serif"
         android:gravity="center"
         android:lineSpacingExtra="10sp"
@@ -28,11 +30,15 @@
         tools:layout_constraintLeft_creator="1"
         tools:layout_constraintTop_creator="1" />
 
-    <ImageButton
-        android:id="@+id/imageButton"
-        android:layout_width="122dp"
-        android:layout_height="70dp"
-        android:background="@drawable/ic_action_name"
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/appCompatImageView"
+        android:layout_width="70dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:layout_weight="0.32"
+        android:rotation="0"
+        android:visibility="visible"
+        app:srcCompat="@drawable/action_next"
         tools:layout_editor_absoluteX="259dp"
         tools:layout_editor_absoluteY="0dp" />
 
