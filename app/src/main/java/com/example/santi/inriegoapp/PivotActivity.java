@@ -28,7 +28,7 @@ import java.util.Date;
 
 public class PivotActivity extends AppCompatActivity {
     Pivot a = new Pivot();
-
+String token="";
     ArrayList<Pivot> l = new ArrayList<Pivot>();
     Typeface face;
     TextView title;
@@ -43,6 +43,7 @@ Button bt;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pivot);
         face= Typeface.createFromAsset(getAssets(),"Raleway-Light.ttf");
+        token=getIntent().getStringExtra("token");
         Str=getIntent().getBundleExtra("extra").getStringArrayList("pivots");
         Nombre=getIntent().getStringExtra("Establecimiento");
         for (String f:Str) {
@@ -78,6 +79,7 @@ Button bt;
 
                 Intent i =new Intent(PivotActivity.this ,AgregarLluviaActivity.class );
                i.putExtra("pivots",l);
+                i.putExtra("token",token);
                 startActivity(i);
             }
         });

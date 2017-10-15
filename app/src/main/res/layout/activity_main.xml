@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -34,13 +35,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
+        android:allowUndo="true"
         android:hint="USUARIO"
         android:inputType="text"
         android:selectAllOnFocus="true"
         android:singleLine="true"
         android:textAlignment="center"
         android:textColorHint="@android:color/background_dark"
-         />
+        android:textColorLink="@color/colorPrimary"
+        android:visibility="visible" />
 
     <EditText
         android:id="@+id/contraseña"
@@ -52,11 +55,13 @@
         android:inputType="textPassword"
         android:textAlignment="center"
         android:textColorHint="@android:color/background_dark"
-        app:layout_constraintTop_toBottomOf="@+id/nombre"
+        android:textColorLink="@color/colorPrimary"
 
 
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/nombre"
+        tools:ignore="HardcodedText" />
 
 
     <Button

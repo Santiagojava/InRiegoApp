@@ -40,8 +40,7 @@ import java.util.List;
  */
 
 public class EstablecimientoActivity extends Activity {
-Establecimiento a=new Establecimiento("San Jose");
-    Establecimiento b=new Establecimiento("Colonia");
+
     ArrayList<Establecimiento> l=new ArrayList<Establecimiento>();
     private ListView list;
     Typeface face;

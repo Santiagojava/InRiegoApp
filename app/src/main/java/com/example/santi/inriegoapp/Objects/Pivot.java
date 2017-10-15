@@ -14,9 +14,17 @@ public class Pivot implements Serializable{
     private String nombre;
     private String fenologia;
     private Date Fecha;
-
+private boolean ischecked;
 
     public Pivot() {
+    }
+
+    public boolean ischecked() {
+        return ischecked;
+    }
+
+    public void setIschecked(boolean ischecked) {
+        this.ischecked = ischecked;
     }
 
     public String getNombre() {
@@ -47,5 +55,6 @@ public class Pivot implements Serializable{
         this.setNombre(js.get("Name").toString());
         this.setFenologia(js.get("Phenology").toString());
         this.setFecha(new Date());
+        this.ischecked=false;
     }
 }

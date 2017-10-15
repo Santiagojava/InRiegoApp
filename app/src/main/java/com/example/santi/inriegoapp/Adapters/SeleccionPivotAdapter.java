@@ -9,8 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
+import com.example.santi.inriegoapp.Objects.Establecimiento;
 import com.example.santi.inriegoapp.Objects.Pivot;
 import com.example.santi.inriegoapp.R;
 
@@ -24,12 +26,15 @@ public class SeleccionPivotAdapter extends BaseAdapter {
     protected Activity activity;
     protected ArrayList<Pivot> Pivots;
     protected Typeface face;
+    protected ArrayList<Pivot> Seleccionados;
+    protected int pos;
 
     public SeleccionPivotAdapter(Activity activity, ArrayList<Pivot> pivots, Typeface face) {
         this.activity = activity;
         Pivots = pivots;
         this.face = face;
     }
+
 
     public Activity getActivity() {
         return activity;
@@ -65,7 +70,7 @@ public class SeleccionPivotAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View v=convertView;
-
+pos=position;
 
         if(convertView==null) {
             LayoutInflater inf = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -79,7 +84,13 @@ public class SeleccionPivotAdapter extends BaseAdapter {
         title.setTypeface(face);
         title.setTextColor(Color.BLACK);
         title.setText(dir.getNombre());
-
+title.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        Pivot dir = Pivots.get(pos);
+        dir.setIschecked(isChecked);
+    }
+});
         return v;
     }
 
