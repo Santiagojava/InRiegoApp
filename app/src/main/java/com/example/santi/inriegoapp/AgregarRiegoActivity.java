@@ -3,19 +3,23 @@ package com.example.santi.inriegoapp;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.ContentValues;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.design.internal.NavigationMenu;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.ViewParent;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.santi.inriegoapp.Adapters.SeleccionPivotAdapter;
 import com.example.santi.inriegoapp.Objects.Pivot;
@@ -47,6 +51,7 @@ public class AgregarRiegoActivity extends Activity {
     String token="";
     Timestamp timestamp;
     SeleccionPivotAdapter e;
+    boolean flag;
     private DatePickerDialog.OnDateSetListener dpickerListener;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -114,29 +119,65 @@ public class AgregarRiegoActivity extends Activity {
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                timestamp = new Timestamp(System.currentTimeMillis());
-                SQLiteDatabase db = db1.getWritableDatabase();
-                lista=e.getPivots();
-                for(int i=0;i<lista.size();i++) {
-                    Pivot p=lista.get(i);ContentValues lluvia = new ContentValues();
-                    JSONObject reg = new JSONObject();
-                    if(p.ischecked()) {
-                        try {
-                            reg.put("Token", token);
-                            reg.put("IrrigationUnitId", i);
-                            reg.put("Milimeters", mm.getText());
-                            reg.put("Date", fecha.getText());
-                            lluvia.put("JSON", String.valueOf(reg));
-                            lluvia.put("REG", String.valueOf(timestamp));
-                            db.insert("INGRESOS", null, lluvia);
-                        } catch (JSONException e1) {
-                            e1.printStackTrace();
+                if(validar()) {
+                    timestamp = new Timestamp(System.currentTimeMillis());
+                    SQLiteDatabase db = db1.getWritableDatabase();
+                    Seleccionados = e.getPivots();
+
+                    for (int i = 0; i < Seleccionados.size(); i++) {
+                        Pivot p = Seleccionados.get(i);
+                        ContentValues lluvia = new ContentValues();
+                        JSONObject reg = new JSONObject();
+                        flag=false;
+                        if (p.ischecked()) {
+                            try {
+                                flag=true;
+                                reg.put("Token", token);
+                                reg.put("IrrigationUnitId", i);
+                                reg.put("Milimeters", mm.getText());
+                                reg.put("Date", fecha.getText());
+                                lluvia.put("JSON", String.valueOf(reg));
+                                lluvia.put("REG", String.valueOf(timestamp));
+                                db.insert("INGRESOS", null, lluvia);
+
+                            } catch (JSONException e1) {
+                                e1.printStackTrace();
+                            }
                         }
+
+
+                    }
+                    if(!flag){
+                        Toast t1 = Toast.makeText(getApplicationContext(), "Seleccione almenos 1 Pivot", Toast.LENGTH_LONG);
+                        t1.show();
+                    }
+                    else {
+                        Toast t1 = Toast.makeText(getApplicationContext(), "Se ah agregado Riego", Toast.LENGTH_LONG);
+                        t1.show();
+                        db.close();
+                        onBackPressed();
                     }
                 }
-                db.close();
+                else
+                {
+                    Toast t1 = Toast.makeText(getApplicationContext(), "Debe seleccionar almenos un pivot", Toast.LENGTH_LONG);
+                    t1.show();
+                }
 
             }
         });
     }
+
+    public boolean validar(){
+        if(fecha.getText()==null) {
+            return false;
+        }
+        if(mm.getText()==null){
+            return false;
+        }
+        return true;
+    }
+
+
+
 }
