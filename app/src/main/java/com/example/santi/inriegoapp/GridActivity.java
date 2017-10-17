@@ -123,16 +123,19 @@ public class GridActivity extends Activity {
                             if(pivots.getJSONObject(i).get("Name").toString().equals(params[2])){
                                 JSONObject pivot = pivots.getJSONObject(i);
                                 JSONArray advices = pivot.getJSONArray("Advices");
-                                /*
                                 int cant = 0;
+                                int cont = 0;
                                 Date hoy = new Date();
-                                while(cant < 8){
-                                    JSONObject advs = advices.getJSONObject(cant);
+                                /*
+                                while(cant < 8 && cont < advices.length()){
+                                    JSONObject advs = advices.getJSONObject(cont);
                                     String dateStr = advs.getString("Date");
                                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
                                     Date date = sdf.parse(dateStr);
+
+
                                     if(date.getYear() != hoy.getYear() && date.getMonth() != hoy.getMonth() && date.getDay() != hoy.getDay()) {
-                                        if (date.before(hoy)) {
+                                        if (date.before(hoy)) {//Antes de hoy
                                             long diff = hoy.getTime() - date.getTime();
                                             int numero = (int) TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
                                             Item itm = new Item();
@@ -141,25 +144,37 @@ public class GridActivity extends Activity {
                                             for(int x=0;x<numero;x++){
                                                 Item it = new Item();
                                                 l.add(it);
+                                                cant++;
                                             }
                                         }
-                                        else{
-                                            Item itm = new Item();
-                                            itm.JsonParser(advs);
-                                            l.add(itm);
-                                        }
-                                    }
-                                    else{
-                                        if(cant==0){
+                                        else{//Despues de hoy
                                             Item itm = new Item();
                                             itm.JsonParser(advs);
                                             l.add(itm);
                                             cant ++;
+                                            cont ++;
                                         }
+                                    }
+                                    else{//Igual hoy
+                                        if(cant < 2 ){
+                                            long diff = hoy.getTime() - date.getTime();
+                                            int numero = (int) TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+                                            for(int x=0;x<numero;x++){
+                                                Item it = new Item();
+                                                l.add(it);
+                                                cant++;
+                                            }
+                                        }
+                                        Item itm = new Item();
+                                        itm.JsonParser(advs);
+                                        l.add(itm);
+                                        cant ++;
+                                        cont ++;
                                     }
 
                                 }
                                 */
+
 
                                 for(int x=0;x<advices.length();x++){
                                     JSONObject advs = advices.getJSONObject(x);
