@@ -25,7 +25,7 @@
         android:textSize="65dp" />
 
     <ImageView
-        android:id="@+id/img_estado_grid"
+        android:id="@+id/riego_imagen"
         android:layout_width="match_parent"
         android:layout_height="202dp"
         app:srcCompat="@drawable/irrigation" />

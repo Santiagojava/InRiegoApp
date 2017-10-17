@@ -39,6 +39,14 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".GridActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.Grid" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
         <service android:name=".SegundoPlano"></service>
     </application>
     <uses-permission android:name="android.permission.INTERNET" >
