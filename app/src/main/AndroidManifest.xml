@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.santi.inriegoapp">
 
+    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"></uses-permission>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -30,8 +33,10 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".PivotActivity">
+        <activity
+            android:name=".PivotActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:parentActivityName=".EstablecimientoActivity">
             <intent-filter>
                 <action android:name="android.intent.action.Pivot" />
 
@@ -47,7 +52,14 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".SegundoPlano"></service>
+        <service android:name=".SegundoPlano" />
+
+        <activity android:name=".AgregarLluviaActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:parentActivityName=".PivotActivity" >
+
+
+        </activity>
     </application>
     <uses-permission android:name="android.permission.INTERNET" >
     </uses-permission>

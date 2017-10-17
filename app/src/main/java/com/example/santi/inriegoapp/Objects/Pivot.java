@@ -3,18 +3,28 @@ package com.example.santi.inriegoapp.Objects;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by KevinQ on 24/9/2017.
  */
 
-public class Pivot {
+public class Pivot implements Serializable{
     private String nombre;
     private String fenologia;
     private Date Fecha;
+private boolean ischecked;
 
     public Pivot() {
+    }
+
+    public boolean ischecked() {
+        return ischecked;
+    }
+
+    public void setIschecked(boolean ischecked) {
+        this.ischecked = ischecked;
     }
 
     public String getNombre() {
@@ -45,5 +55,6 @@ public class Pivot {
         this.setNombre(js.get("Name").toString());
         this.setFenologia(js.get("Phenology").toString());
         this.setFecha(new Date());
+        this.ischecked=false;
     }
 }

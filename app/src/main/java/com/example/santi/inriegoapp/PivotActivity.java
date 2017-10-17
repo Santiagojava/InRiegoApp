@@ -5,8 +5,11 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,7 +45,9 @@ public class PivotActivity extends Activity {
     String token = "";
     String nom_pivot = "";
     ArrayList<String> Str = new ArrayList<>();
-
+Button bt;
+    Toolbar t;
+   String Nombre="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +57,7 @@ public class PivotActivity extends Activity {
         farmid = getIntent().getStringExtra("farmid");
         token = getIntent().getStringExtra("token");
         Str=getIntent().getBundleExtra("extra").getStringArrayList("pivots");
+        Nombre=getIntent().getStringExtra("Establecimiento");
         for (String f:Str) {
             Pivot p=new Pivot();
             try {
@@ -86,5 +92,24 @@ public class PivotActivity extends Activity {
             }
 
         });
+        bt= (Button) findViewById(R.id.bt_Agregar_lluvia);
+        bt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent i =new Intent(PivotActivity.this ,AgregarLluviaActivity.class );
+               i.putExtra("pivots",l);
+                i.putExtra("token",token);
+                startActivity(i);
+            }
+        });
+        t= (Toolbar) findViewById(R.id.toolbar_pivots);
+        t.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+        t.setTitle(Nombre);
     }
 }
