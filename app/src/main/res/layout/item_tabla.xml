@@ -2,27 +2,27 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="50dp"
     android:weightSum="1"
     android:baselineAligned="false">
 
     <TextView
         android:id="@+id/dia_grid"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="65"
+        android:layout_height="15dp"
         android:fontFamily="sans-serif"
-        android:textSize="65dp" />
+        android:text="65"
+        android:textSize="14sp" />
 
     <TextView
         android:id="@+id/cantidad_grid"
         android:layout_width="match_parent"
-        android:layout_height="58dp"
+        android:layout_height="15dp"
         android:layout_weight="0.08"
         android:fontFamily="sans-serif"
         android:text="65"
         android:textAlignment="center"
-        android:textSize="65dp" />
+        android:textSize="30sp" />
 
     <ImageView
         android:id="@+id/riego_imagen"

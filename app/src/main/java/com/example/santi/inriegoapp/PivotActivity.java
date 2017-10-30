@@ -103,7 +103,7 @@ Button bt;
                 startActivity(i);
             }
         });
-        t= (Toolbar) findViewById(R.id.toolbar_pivots);
+        t= (Toolbar) findViewById(R.id.toolbar_2);
         t.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

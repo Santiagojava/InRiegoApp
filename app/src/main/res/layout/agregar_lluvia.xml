@@ -8,22 +8,11 @@
     android:orientation="vertical"
     android:weightSum="1">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar_agregarlluvia"
-        android:layout_width="match_parent"
-        android:layout_height="55dp"
-        android:background="#143465"
-        android:elevation="4dp"
-        android:minHeight="?attr/actionBarSize"
-        android:textAlignment="gravity"
-        android:theme="?attr/actionBarTheme"
 
-        android:visibility="visible"
-        app:navigationIcon="@drawable/navigation_left"
-        app:title="Establecimiento"></android.support.v7.widget.Toolbar>
-
+    <include
+        layout="@layout/toolbar"
+        ></include>
     <TextView
-        android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Fecha"
@@ -65,7 +54,6 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/textView6"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0.05"

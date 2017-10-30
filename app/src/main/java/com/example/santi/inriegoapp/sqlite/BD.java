@@ -17,7 +17,7 @@ public class BD extends SQLiteOpenHelper {
     private final Context contexto ;
 
 
-  String  Sqlcreate="CREATE TABLE INGRESOS(_ID INTEGER PRIMARY KEY AUTOINCREMENT,JSON TEXT NOT NULL,REG TIMESTAMP)";
+  String  Sqlcreate="CREATE TABLE INGRESOS(_ID INTEGER PRIMARY KEY AUTOINCREMENT,JSON TEXT NOT NULL,REG TIMESTAMP,TIPO INTEGER)";
     public BD(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, NOMBRE_BASE_DATOS, factory, version);
         this.contexto=context;

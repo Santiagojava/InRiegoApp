@@ -147,6 +147,7 @@ Drawable n;
                                     reg.put("Date", fecha.getText());
                                     lluvia.put("JSON", String.valueOf(reg));
                                     lluvia.put("REG", String.valueOf(timestamp));
+                                    lluvia.put("TIPO",1);
                                     db.insert("INGRESOS", null, lluvia);
 
                                 } catch (JSONException e1) {
