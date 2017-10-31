@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
@@ -28,6 +30,7 @@ import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
@@ -43,6 +46,11 @@ public class GridActivity extends Activity {
     String token = "";
     int posicion = 0;
     String nom_pivot = "";
+    String crop;
+    String fenology;
+    int kc;
+    TextView fn,c,fc;
+    String fecha_cul;
     ArrayList<String> Str = new ArrayList<>();
     private GridView gv;
     Button agregar;
@@ -78,7 +86,6 @@ public class GridActivity extends Activity {
             }
 
         });
-
     }
 
 
@@ -122,10 +129,100 @@ public class GridActivity extends Activity {
                         for(int i=0;i<pivots.length();i++){
                             if(pivots.getJSONObject(i).get("Name").toString().equals(params[2])){
                                 JSONObject pivot = pivots.getJSONObject(i);
+                                fenology = pivot.get("Phenology").toString();
+                                crop = pivot.get("Crop").toString();
+                                kc = pivot.getInt("Kc");
+                                String Str = pivot.getString("HarvestDate");
+                                SimpleDateFormat sfd = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
+                                Date fcul = sfd.parse(Str);
+                                Calendar hd = Calendar.getInstance();
+                                hd.setTime(fcul);
+                                fecha_cul = String.valueOf(hd.get(Calendar.DAY_OF_MONTH)) + "/" + String.valueOf(hd.get(Calendar.MONTH)) + "/" + String.valueOf(hd.get(Calendar.YEAR));
                                 JSONArray advices = pivot.getJSONArray("Advices");
                                 int cant = 0;
                                 int cont = 0;
                                 Date hoy = new Date();
+                                Calendar inicio = Calendar.getInstance();
+                                Calendar full = Calendar .getInstance();
+                                full.setTime(hoy);
+                                full.add(Calendar.DAY_OF_YEAR,-2);
+                                inicio.setTime(hoy);
+                                inicio.add(Calendar.DAY_OF_YEAR,-2);
+                                //Calendar prueba= inicio;
+                                for(int x=0;x<8;x++){
+                                    Item it = new Item();
+                                    Date deit = full.getTime();
+                                    it.setFecha(deit);
+                                    l.add(it);
+                                    full.add(Calendar.DAY_OF_MONTH,1);
+                                }
+
+                                for(int x=0;x<advices.length();x++){
+                                    /*Item itm = new Item();
+                                    JSONObject advs = advices.getJSONObject(x);
+                                    itm.JsonParser(advs);
+                                    l.add(itm);*/
+                                    JSONObject advs = advices.getJSONObject(x);
+                                    String dateStr = advs.getString("Date");
+                                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
+                                    Date date = sdf.parse(dateStr);
+                                    Calendar fch = Calendar.getInstance();
+                                    fch.setTime(date);
+                                    if(inicio.get(Calendar.DAY_OF_MONTH) == fch.get(Calendar.DAY_OF_MONTH)){
+                                        l.get(0).JsonParser(advs);
+                                        //inicio.add(Calendar.DAY_OF_YEAR,1);
+                                    }
+                                    else{
+                                        inicio.add(Calendar.DAY_OF_YEAR,1);
+                                        if(inicio.get(Calendar.DAY_OF_MONTH) == fch.get(Calendar.DAY_OF_MONTH)){
+                                            l.get(1).JsonParser(advs);
+                                            //inicio.add(Calendar.DAY_OF_YEAR,1);
+                                        }
+                                        else{
+                                            inicio.add(Calendar.DAY_OF_YEAR,1);
+                                            if(inicio.get(Calendar.DAY_OF_MONTH) == fch.get(Calendar.DAY_OF_MONTH)){
+                                                l.get(2).JsonParser(advs);
+                                                //inicio.add(Calendar.DAY_OF_YEAR,1);
+                                            }
+                                            else{
+                                                inicio.add(Calendar.DAY_OF_YEAR,1);
+                                                if(inicio.get(Calendar.DAY_OF_MONTH) == fch.get(Calendar.DAY_OF_MONTH)){
+                                                    l.get(3).JsonParser(advs);
+                                                    //inicio.add(Calendar.DAY_OF_YEAR,1);
+                                                }
+                                                else{
+                                                    inicio.add(Calendar.DAY_OF_YEAR,1);
+                                                    if(inicio.get(Calendar.DAY_OF_MONTH) == fch.get(Calendar.DAY_OF_MONTH)){
+                                                        l.get(4).JsonParser(advs);
+                                                        //inicio.add(Calendar.DAY_OF_YEAR,1);
+                                                    }
+                                                    else{
+                                                        inicio.add(Calendar.DAY_OF_YEAR,1);
+                                                        if(inicio.get(Calendar.DAY_OF_MONTH) == fch.get(Calendar.DAY_OF_MONTH)){
+                                                            l.get(5).JsonParser(advs);
+                                                            //inicio.add(Calendar.DAY_OF_YEAR,1);
+                                                        }
+                                                        else{
+                                                            inicio.add(Calendar.DAY_OF_YEAR,1);
+                                                            if(inicio.get(Calendar.DAY_OF_MONTH) == fch.get(Calendar.DAY_OF_MONTH)){
+                                                                l.get(6).JsonParser(advs);
+                                                                //inicio.add(Calendar.DAY_OF_YEAR,1);
+                                                            }
+                                                            else{
+                                                                inicio.add(Calendar.DAY_OF_YEAR,1);
+                                                                if(inicio.get(Calendar.DAY_OF_MONTH) == fch.get(Calendar.DAY_OF_MONTH)){
+                                                                    l.get(7).JsonParser(advs);
+                                                                    //inicio.add(Calendar.DAY_OF_YEAR,1);
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+
                                 /*
                                 while(cant < 8 && cont < advices.length()){
                                     JSONObject advs = advices.getJSONObject(cont);
@@ -176,12 +273,7 @@ public class GridActivity extends Activity {
                                 */
 
 
-                                for(int x=0;x<advices.length();x++){
-                                    JSONObject advs = advices.getJSONObject(x);
-                                    Item itm = new Item();
-                                    itm.JsonParser(advs);
-                                    l.add(itm);
-                                }
+
                             }
                         }
                     } else {
@@ -207,6 +299,23 @@ public class GridActivity extends Activity {
         protected void onPostExecute(String s) {
             ItemAdapter ia = new ItemAdapter(GridActivity.this,l,face);
             gv.setAdapter(ia);
+            gv.setOnTouchListener(new View.OnTouchListener(){
+
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    return event.getAction() == MotionEvent.ACTION_MOVE;
+                }
+
+            });
+            c = (TextView)findViewById(R.id.tipocultivo);
+            fc = (TextView)findViewById(R.id.fecha_c);
+            fn = (TextView)findViewById(R.id.fenologia);
+            c.setText(crop);
+            c.setTypeface(null, Typeface.BOLD);
+            fc.setText(fecha_cul);
+            fc.setTypeface(null, Typeface.BOLD);
+            fn.setText(fenology);
+            fn.setTypeface(null, Typeface.BOLD);
         }
     }
 }

@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
+    android:background="@drawable/border"
     android:layout_height="match_parent"
     android:weightSum="1"
     android:baselineAligned="false">
@@ -9,25 +10,27 @@
     <TextView
         android:id="@+id/dia_grid"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="65"
+        android:layout_height="20dp"
         android:fontFamily="sans-serif"
-        android:textSize="65dp" />
+        android:text="2"
+        android:textSize="20dp" />
 
     <TextView
         android:id="@+id/cantidad_grid"
         android:layout_width="match_parent"
-        android:layout_height="58dp"
+        android:layout_height="5dp"
+        android:layout_marginTop="10dp"
         android:layout_weight="0.08"
         android:fontFamily="sans-serif"
-        android:text="65"
+        android:text="12"
         android:textAlignment="center"
-        android:textSize="65dp" />
+        android:textSize="20dp" />
 
     <ImageView
         android:id="@+id/riego_imagen"
+        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
-        android:layout_height="202dp"
+        android:layout_height="40dp"
         app:srcCompat="@drawable/irrigation" />
 
 </LinearLayout>
