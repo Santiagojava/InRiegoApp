@@ -10,20 +10,9 @@
     android:weightSum="1">
 
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar_pivots"
-        android:layout_width="match_parent"
-        android:layout_height="55dp"
-        android:background="#143465"
-        android:elevation="4dp"
-        android:minHeight="?attr/actionBarSize"
-        android:textAlignment="gravity"
-        android:theme="?attr/actionBarTheme"
-
-        android:visibility="visible"
-        app:navigationIcon="@drawable/navigation_left"
-        app:title="Establecimiento"></android.support.v7.widget.Toolbar>
-
+    <include
+        layout="@layout/toolbar"
+        ></include>
     <TextView
         android:id="@+id/textView2"
         android:layout_width="match_parent"
@@ -70,7 +59,8 @@
         android:textSize="24sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/contraseña" />
+        app:layout_constraintTop_toBottomOf="@+id/contraseña"
+        tools:ignore="HardcodedText" />
 
 
 </android.widget.LinearLayout>

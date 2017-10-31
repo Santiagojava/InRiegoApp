@@ -131,6 +131,17 @@ public class MainActivity extends AppCompatActivity {
                         }
                         a.putStringArrayList("farms",farmsS);
 
+                        try {
+                            Properties properties = new Properties();
+
+                            AssetManager assetManager = getApplicationContext().getAssets();
+                            InputStream inputStream = assetManager.open("propiedades");
+                            properties.load(inputStream);
+                          properties.setProperty("token",farm.getString("Token"));
+
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                         Intent hola = new Intent(getApplicationContext(), EstablecimientoActivity.class);
                         hola.putExtra("extra",a);
                         hola.putExtra("token",farm.getString("Token"));
