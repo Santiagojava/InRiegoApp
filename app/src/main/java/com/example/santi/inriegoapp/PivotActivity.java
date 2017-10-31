@@ -3,10 +3,13 @@ package com.example.santi.inriegoapp;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -34,21 +37,21 @@ import java.util.Date;
  * Created by santi on 8/10/2017.
  */
 
-public class PivotActivity extends Activity {
+public class PivotActivity extends AppCompatActivity {
     Pivot a = new Pivot();
 
     ArrayList<Pivot> l = new ArrayList<Pivot>();
     Typeface face;
-    TextView title;
+    TextView title,est;
     private ListView list;
     String farmid = "";
     String token = "";
     String nom_pivot = "";
     ArrayList<String> Str = new ArrayList<>();
-Button bt;
+Button bt,back;
     Toolbar t;
    String Nombre="";
-
+Drawable w;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -100,10 +103,13 @@ Button bt;
                 Intent i =new Intent(PivotActivity.this ,AgregarLluviaActivity.class );
                i.putExtra("pivots",l);
                 i.putExtra("token",token);
+                i.putExtra("Est",Nombre);
                 startActivity(i);
             }
         });
-        t= (Toolbar) findViewById(R.id.toolbar_2);
+        t= (Toolbar) findViewById(R.id.toolbar_Pivot);
+       setSupportActionBar(t);
+
         t.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -111,5 +117,14 @@ Button bt;
             }
         });
         t.setTitle(Nombre);
+
+//t.showOverflowMenu();
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.conf_menu,menu);
+        return true;
     }
 }

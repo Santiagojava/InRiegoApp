@@ -19,6 +19,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.SparseBooleanArray;
+import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -41,7 +42,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class AgregarLluviaActivity extends Activity {
+public class AgregarLluviaActivity extends AppCompatActivity {
 EditText fecha,mm;
     Typeface face;
     int dyear, dmonth, dday;
@@ -56,6 +57,7 @@ EditText fecha,mm;
     String token="";
     Timestamp timestamp;
     SeleccionPivotAdapter e;
+    String Nombre ;
 Drawable n;
     boolean flag;
 
@@ -63,12 +65,12 @@ Drawable n;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.agregar_lluvia);
-
+Nombre=getIntent().getStringExtra("Est");
         token=getIntent().getStringExtra("token");
         mm= (EditText) findViewById(R.id.cantidad_mm_ll);
         b= (Button) findViewById(R.id.bt_agregar_lluvia);
         t= (Toolbar) findViewById(R.id.toolbar_agregarlluvia);
-       n = t.getNavigationIcon();
+
 
         t.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,7 +81,7 @@ Drawable n;
         face= Typeface.createFromAsset(getAssets(),"Raleway-Light.ttf");
         lista= (ArrayList<Pivot>) getIntent().getSerializableExtra("pivots");
         l= (ListView) findViewById(R.id.lista_pivots_ll);
-
+        setSupportActionBar(t);
   e=  new SeleccionPivotAdapter(this,lista,face);
         e.setPivots(lista);
         l.setAdapter(e);
@@ -189,7 +191,11 @@ Drawable n;
     }
 
 
-
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.conf_menu,menu);
+        return true;
+    }
 
 
 }
