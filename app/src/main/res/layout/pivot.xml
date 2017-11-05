@@ -9,10 +9,21 @@
     android:orientation="vertical"
     android:weightSum="1">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_Pivot"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:background="#143465"
+        android:elevation="4dp"
+        android:isScrollContainer="false"
+        android:minHeight="?attr/actionBarSize"
+        android:textAlignment="gravity"
+        android:theme="?attr/actionBarTheme"
+        android:visibility="visible"
 
-    <include
-        layout="@layout/toolbar"
-        ></include>
+        app:navigationIcon="@drawable/navigation_left"
+        app:title="Establecimiento"></android.support.v7.widget.Toolbar>
+
     <TextView
         android:id="@+id/textView2"
         android:layout_width="match_parent"

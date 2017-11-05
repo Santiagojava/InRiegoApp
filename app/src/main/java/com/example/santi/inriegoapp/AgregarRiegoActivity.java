@@ -11,6 +11,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.design.internal.NavigationMenu;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewParent;
 import android.widget.AdapterView;
@@ -178,6 +179,10 @@ public class AgregarRiegoActivity extends Activity {
         return true;
     }
 
-
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.conf_menu,menu);
+        return true;
+    }
 
 }

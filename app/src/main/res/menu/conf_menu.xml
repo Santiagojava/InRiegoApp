@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+<item
+    android:id="@+id/Conf_sinc"
+    android:title="Configuracion"
+    tools:ignore="HardcodedText" />
+    <item
+        android:id="@+id/logout"
+        android:title="Cerrar Sessión"
+        tools:ignore="HardcodedText" />
+</menu>
