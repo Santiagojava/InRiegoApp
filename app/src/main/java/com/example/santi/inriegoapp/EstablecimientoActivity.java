@@ -6,9 +6,12 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.AssetManager;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -29,11 +32,13 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 /**
  * Created by santi on 29/8/2017.
@@ -51,6 +56,12 @@ public class EstablecimientoActivity extends Activity {
     String Nombre="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        SharedPreferences sh= PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        token=sh.getString("token","");
+        farmid=sh.getString("farm","");
+        Nombre=sh.getString("est","");
+        if(farmid!="")
+            new Pivots().execute(token,farmid,Nombre);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.establecimiento);
    face= Typeface.createFromAsset(getAssets(),"Raleway-Light.ttf");
@@ -96,6 +107,7 @@ Str=getIntent().getBundleExtra("extra").getStringArrayList("farms");
 
     public class Pivots extends AsyncTask<String, Void, String> {
 String Nombre="";
+        String idfarm="";
         @Override
         protected String doInBackground(String... params) {
             String res = "";
@@ -104,6 +116,7 @@ Nombre=params[2];
                 URL url = new URL("http://iradvisor.pgwwater.com.uy:9080/api/IrrigationData/token/" + params[0] + "/farmId/" + params[1] + "");
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("GET");
+                idfarm=params[1];
                 int responseCode = conn.getResponseCode();
 
                 BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
@@ -132,8 +145,8 @@ Nombre=params[2];
 
         @Override
         protected void onPostExecute(String s) {
-            if (s == "")
-                Toast.makeText(EstablecimientoActivity.this, "Datos no validos", Toast.LENGTH_LONG).show();
+            if (s == ""){}
+
             else {
                 try {
                     JSONObject js = new JSONObject(s);
@@ -154,6 +167,12 @@ Nombre=params[2];
                         hola.putExtra("token",token);
                         hola.putExtra("farmid",farmid);
                         hola.putExtra("Establecimiento",Nombre);
+                        SharedPreferences sh=PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                        SharedPreferences.Editor ed= sh.edit();
+                        ed.putString("est",Nombre);
+                        ed.putString("farm",idfarm);
+                        ed.commit();
+                        ed.apply();
                         startActivity(hola);
 
                     } else {
