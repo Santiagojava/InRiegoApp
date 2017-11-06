@@ -43,11 +43,11 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 public class AgregarLluviaActivity extends AppCompatActivity {
-EditText fecha,mm;
+    EditText fecha,mm;
     Typeface face;
     int dyear, dmonth, dday;
     static  final int id=0;
-   ImageButton bt;
+    ImageButton bt;
     BD db1;
     ArrayList<Pivot> lista;
     ArrayList<Pivot> Seleccionados;
@@ -57,32 +57,32 @@ EditText fecha,mm;
     String token="";
     Timestamp timestamp;
     SeleccionPivotAdapter e;
-    String Nombre ;
-Drawable n;
+    Drawable n;
     boolean flag;
 
     private DatePickerDialog.OnDateSetListener dpickerListener;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.agregar_lluvia);
-Nombre=getIntent().getStringExtra("Est");
+
         token=getIntent().getStringExtra("token");
         mm= (EditText) findViewById(R.id.cantidad_mm_ll);
         b= (Button) findViewById(R.id.bt_agregar_lluvia);
         t= (Toolbar) findViewById(R.id.toolbar_agregarlluvia);
 
-
+        setSupportActionBar(t);
         t.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onBackPressed();
             }
         });
+
         face= Typeface.createFromAsset(getAssets(),"Raleway-Light.ttf");
         lista= (ArrayList<Pivot>) getIntent().getSerializableExtra("pivots");
         l= (ListView) findViewById(R.id.lista_pivots_ll);
-        setSupportActionBar(t);
-  e=  new SeleccionPivotAdapter(this,lista,face);
+
+        e=  new SeleccionPivotAdapter(this,lista,face);
         e.setPivots(lista);
         l.setAdapter(e);
         l.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -98,7 +98,7 @@ Nombre=getIntent().getStringExtra("Est");
             }
         });
         fecha= (EditText) findViewById(R.id.Fecha_ll);
-      bt= (ImageButton) findViewById(R.id.bt_fecha_ll);
+        bt= (ImageButton) findViewById(R.id.bt_fecha_ll);
         bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -135,46 +135,45 @@ Nombre=getIntent().getStringExtra("Est");
                     SQLiteDatabase db = db1.getWritableDatabase();
                     Seleccionados = e.getPivots();
 
-                        for (int i = 0; i < Seleccionados.size(); i++) {
-                            Pivot p = Seleccionados.get(i);
-                            ContentValues lluvia = new ContentValues();
-                            JSONObject reg = new JSONObject();
-                            flag=false;
-                            if (p.ischecked()) {
-                                try {
-                                    flag=true;
-                                    reg.put("Token", token);
-                                    reg.put("IrrigationUnitId", i);
-                                    reg.put("Milimeters", mm.getText());
-                                    reg.put("Date", fecha.getText());
-                                    lluvia.put("JSON", String.valueOf(reg));
-                                    lluvia.put("REG", String.valueOf(timestamp));
-                                    lluvia.put("TIPO",1);
-                                    db.insert("INGRESOS", null, lluvia);
+                    for (int i = 0; i < Seleccionados.size(); i++) {
+                        Pivot p = Seleccionados.get(i);
+                        ContentValues lluvia = new ContentValues();
+                        JSONObject reg = new JSONObject();
+                        flag=false;
+                        if (p.ischecked()) {
+                            try {
+                                flag=true;
+                                reg.put("Token", token);
+                                reg.put("IrrigationUnitId", i);
+                                reg.put("Milimeters", mm.getText());
+                                reg.put("Date", fecha.getText());
+                                lluvia.put("JSON", String.valueOf(reg));
+                                lluvia.put("REG", String.valueOf(timestamp));
+                                db.insert("INGRESOS", null, lluvia);
 
-                                } catch (JSONException e1) {
-                                    e1.printStackTrace();
-                                }
+                            } catch (JSONException e1) {
+                                e1.printStackTrace();
                             }
+                        }
 
 
-                        }
-                        if(!flag){
-                            Toast t1 = Toast.makeText(getApplicationContext(), "Seleccione almenos 1 Pivot", Toast.LENGTH_LONG);
-                            t1.show();
-                        }
-                        else {
-                            Toast t1 = Toast.makeText(getApplicationContext(), "Se ah agregado Riego", Toast.LENGTH_LONG);
-                            t1.show();
-                            db.close();
-                            onBackPressed();
-                        }
-                        }
-                    else
-                    {
-                        Toast t1 = Toast.makeText(getApplicationContext(), "Debe seleccionar almenos un pivot", Toast.LENGTH_LONG);
+                    }
+                    if(!flag){
+                        Toast t1 = Toast.makeText(getApplicationContext(), "Seleccione almenos 1 Pivot", Toast.LENGTH_LONG);
                         t1.show();
                     }
+                    else {
+                        Toast t1 = Toast.makeText(getApplicationContext(), "Se ah agregado Riego", Toast.LENGTH_LONG);
+                        t1.show();
+                        db.close();
+                        onBackPressed();
+                    }
+                }
+                else
+                {
+                    Toast t1 = Toast.makeText(getApplicationContext(), "Debe seleccionar almenos un pivot", Toast.LENGTH_LONG);
+                    t1.show();
+                }
 
             }
         });
@@ -189,13 +188,13 @@ Nombre=getIntent().getStringExtra("Est");
         }
         return true;
     }
-
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.conf_menu,menu);
         return true;
     }
+
+
 
 
 }

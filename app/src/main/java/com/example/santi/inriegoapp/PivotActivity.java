@@ -10,6 +10,7 @@ import android.support.design.widget.AppBarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -99,12 +100,16 @@ Drawable w;
         bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Bundle  a =new Bundle();
                 Intent i =new Intent(PivotActivity.this ,AgregarLluviaActivity.class );
                i.putExtra("pivots",l);
                 i.putExtra("token",token);
-                i.putExtra("Est",Nombre);
+                i.putExtra("Establecimiento",Nombre);
+a.putStringArrayList("pivots",Str);
+                i.putExtra("extra",a);
+                moveTaskToBack(true);
                 startActivity(i);
+
             }
         });
         t= (Toolbar) findViewById(R.id.toolbar_Pivot);
@@ -126,5 +131,18 @@ Drawable w;
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.conf_menu,menu);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+
+            case R.id.Conf_sinc:
+                Intent i = new Intent(getApplicationContext(), HoraActivity.class);
+                startActivity(i);
+                break;
+        }
+
+            return true;
     }
 }

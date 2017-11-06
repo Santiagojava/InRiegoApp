@@ -2,12 +2,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.santi.inriegoapp">
 
-    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"></uses-permission>
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"></uses-permission>
 
     <application
         android:allowBackup="true"
@@ -38,15 +40,14 @@
         </activity>
         <activity
             android:name=".PivotActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar"
-            android:parentActivityName=".EstablecimientoActivity">
+            android:parentActivityName=".EstablecimientoActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.Pivot" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
         <activity android:name=".GridActivity">
             <intent-filter>
                 <action android:name="android.intent.action.Grid" />
@@ -57,32 +58,31 @@
 
         <service android:name=".SegundoPlano" />
 
-        <activity android:name=".AgregarLluviaActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar"
-            android:parentActivityName=".PivotActivity" >
+        <activity
+            android:name=".AgregarLluviaActivity"
+            android:parentActivityName=".PivotActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
+        <activity
+            android:name=".AgregarRiegoActivity"
+            android:parentActivityName=".GridActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
 
+        <activity
+            android:name=".HoraActivity"
+            android:parentActivityName=".GridActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
 
-        </activity>
-
-        <activity android:name=".AgregarRiegoActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar"
-            android:parentActivityName=".GridActivity" >
-
-
-        </activity>
         <service
             android:name=".Servicio"
             android:enabled="true"
-            android:exported="true">
-        </service>
+            android:exported="true"></service>
+
         <receiver android:name=".IniciadorServicio">
             <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED">
-                </action></intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"></action>
+            </intent-filter>
         </receiver>
+
     </application>
-    <uses-permission android:name="android.permission.INTERNET" >
-    </uses-permission>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" >
-    </uses-permission>
+
 </manifest>

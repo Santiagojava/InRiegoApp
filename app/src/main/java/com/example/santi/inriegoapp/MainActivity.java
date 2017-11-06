@@ -4,9 +4,11 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.AssetManager;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
+import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -41,10 +43,17 @@ public class MainActivity extends AppCompatActivity {
     TextView Error;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        SharedPreferences sh=PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         super.onCreate(savedInstanceState);
+        String user=sh.getString("user","");
+        String pass=sh.getString("pass","");
+        if(user!="" && pass!=""){
+
+            new Login().execute(user,pass);
+        }
         setContentView(R.layout.activity_main);
         entrar=(Button)findViewById(R.id.entrar);
-        Properties properties = new Properties();;
+
     User= (EditText) findViewById(R.id.nombre);
         Pass= (EditText) findViewById(R.id.contraseña);
         Error= (TextView) findViewById(R.id.Error);
@@ -52,37 +61,31 @@ public class MainActivity extends AppCompatActivity {
     User.setTypeface(face);
         Pass.setTypeface(face);
         Error.setTypeface(face);
-        AssetManager assetManager = getAssets();
-        InputStream inputStream = null;
-        try {
-            inputStream = assetManager.open("propiedades");
-            properties.load(inputStream);
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-      String hora=  properties.getProperty("hora");
-        NotificationCompat.Builder mBuilder =
-                new NotificationCompat.Builder(this)
-                        .setSmallIcon(R.drawable.ic_not)
-                        .setContentTitle("Mi Aplicacion")
-                        .setContentText(hora);
 
         entrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 new Login().execute(User.getText().toString(),Pass.getText().toString());
                  }
-        });;
+        });
+
+
+
+
     }
     public class Login extends AsyncTask<String, Void, String> {
-
+        String user="";
+        String pass="";
         @Override
         protected String doInBackground(String... params) {
             String res="";
+
             try {
 
                 URL url = new URL("http://iradvisor.pgwwater.com.uy:9080/api/Auth/userName/"+params[0]+"/password/"+params[1]+"");
+                user=params[0];
+                pass=params[1];
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("GET");
                 int responseCode = conn.getResponseCode();
@@ -130,18 +133,15 @@ public class MainActivity extends AppCompatActivity {
                            farmsS.add(farms.get(i).toString());
                         }
                         a.putStringArrayList("farms",farmsS);
+SharedPreferences sh= PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
-                        try {
-                            Properties properties = new Properties();
 
-                            AssetManager assetManager = getApplicationContext().getAssets();
-                            InputStream inputStream = assetManager.open("propiedades");
-                            properties.load(inputStream);
-                          properties.setProperty("token",farm.getString("Token"));
-
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
+                        String token=farm.getString("Token");
+                        SharedPreferences.Editor ed= sh.edit();
+                        ed.putString("token",token);
+                        ed.putString("user",user);
+                        ed.putString("pass",pass);
+                        ed.commit();
                         Intent hola = new Intent(getApplicationContext(), EstablecimientoActivity.class);
                         hola.putExtra("extra",a);
                         hola.putExtra("token",farm.getString("Token"));

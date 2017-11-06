@@ -5,12 +5,14 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.ContentValues;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.AssetManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.IBinder;
 import android.os.SystemClock;
+import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
@@ -45,6 +47,9 @@ public class Servicio extends Service {
     private NotificationManager nm;
     private static final int ID_NOTIFICACION_CREAR = 1;
     boolean flag = false;
+    int hora=0;
+    int min=0;
+
     public Servicio() {
     }
 
@@ -62,32 +67,24 @@ public class Servicio extends Service {
         nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         Log.d(TAG, "El servicio se ha creado");
         timer = new Timer();
+        SharedPreferences sh =   PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        hora=sh.getInt("hora",0);
+        min=sh.getInt("min",29);
+
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 
         java.util.Date DAT =new java.util.Date();
-        String hora = "";
 
-        String min = "";
-        try {
-            Properties properties = new Properties();
-
-            AssetManager assetManager = getApplicationContext().getAssets();
-            InputStream inputStream = assetManager.open("propiedades");
-            properties.load(inputStream);
-            hora = properties.getProperty("hora");
-            min = properties.getProperty("min");
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
        Calendar c= new GregorianCalendar();
         c.setTimeInMillis(DAT.getTime());
-        c.set(Calendar.HOUR_OF_DAY,Integer.parseInt(hora));
-        c.set(Calendar.MINUTE,Integer.parseInt(min));
+        c.set(Calendar.HOUR_OF_DAY,hora);
+        c.set(Calendar.MINUTE,min);
         long d=0;
+        Log.d(TAG, "onStartCommand: "+DAT);
+        Log.d(TAG, "onStartCommand: "+c.getTime());
         if(DAT.getTime()<c.getTime().getTime())
                 d=c.getTime().getTime()-DAT.getTime();
             else {
@@ -103,12 +100,14 @@ public class Servicio extends Service {
         final Calendar cal = Calendar.getInstance();
         cal.setTimeInMillis(d);
         Log.d(TAG, String.valueOf(d));
-        final SimpleDateFormat sdfParser = new SimpleDateFormat("HH:mm", new Locale("ES"));
-        String sTime = sdfParser.format(cal.getTime());
+        long segundos = d / 1000;
+        long minutos = segundos / 60;
+        long horas = minutos / 60;
+        long dias = horas / 24;
         mBuilder = new NotificationCompat.Builder(getApplicationContext())
                 .setSmallIcon(icono)
                 .setContentTitle("Sincronizacion")
-                .setContentText("Se sincronizara en " + sTime + " horas")
+                .setContentText("Se sincronizara en " + horas +" Horas y "+minutos%60+ " Minutos")
                 .setVibrate(new long[]{100, 250, 100, 500})
                 .setAutoCancel(false);
 
@@ -168,11 +167,7 @@ String res ="";
 
 
             try {
-                Properties properties = new Properties();
-                AssetManager assetManager = getApplicationContext().getAssets();
-                InputStream inputStream = null;
-                inputStream = assetManager.open("propiedades");
-                properties.load(inputStream);
+
                 BD db1 = new BD(getApplicationContext(), " inriego.db", null, 1);
                 SQLiteDatabase db = db1.getWritableDatabase();
                 ContentValues datos = new ContentValues();
