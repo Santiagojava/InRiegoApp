@@ -36,7 +36,7 @@ public class EnvioMailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        textMessage = getIntent().getStringExtra("body");
         context = this;
 
         enviarmail();
@@ -44,7 +44,6 @@ public class EnvioMailActivity extends AppCompatActivity {
     public void enviarmail(){
         rec = "santiago-perez-perez@hotmail.com";
         subject = "Esto es una prueba";
-        textMessage = "Hola";
 
         Properties props = new Properties();
         props.put("mail.smtp.host", "smtp.gmail.com");
@@ -55,7 +54,7 @@ public class EnvioMailActivity extends AppCompatActivity {
 
         session = Session.getDefaultInstance(props, new Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication("sanpp96@gmail.com", "");
+                return new PasswordAuthentication("sanpp96@gmail.com", "Suputamadre96");
             }
         });
 
