@@ -2,10 +2,8 @@ package com.example.santi.inriegoapp;
 
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.app.ProgressDialog;
 import android.app.Service;
 import android.content.ContentValues;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.AssetManager;
@@ -18,7 +16,6 @@ import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
-import android.widget.Toast;
 
 import java.text.DateFormat;
 import java.util.Date;
@@ -46,27 +43,13 @@ import java.util.TimeZone;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import javax.mail.Authenticator;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
-
 public class Servicio extends Service {
     private NotificationManager nm;
     private static final int ID_NOTIFICACION_CREAR = 1;
     boolean flag = false;
     int hora=0;
     int min=0;
-    //Mail
-    Session session = null;
-    ProgressDialog pdialog = null;
-    Context context = null;
-    String rec, subject, textMessage;
-    //Mail
+
     public Servicio() {
     }
 
@@ -285,72 +268,8 @@ if(flag=true)
                         .setAutoCancel(false);
 
                 mNotifyMgr.notify(1, mBuilder.build());
-                //Mail
-                BD db1 = new BD(getApplicationContext(), " inriego.db", null, 1);
-                SQLiteDatabase db = db1.getWritableDatabase();
-                ContentValues datos = new ContentValues();
-                Cursor c = db.rawQuery("SELECT * FROM INGRESOS", null);
-                textMessage = "Los siguientes ingresos no fueron posibles\n\n";
-                if (c.moveToFirst()) {
-                    while(!c.isAfterLast()){
-                        textMessage += "\n\n" + c.getString(0);
-                        c.moveToNext();
-                    }
-                }
-                db.execSQL("DELETE FROM INGRESOS");
-                enviarmail();
-                //Mail
+
             }
         }
     }
-    //Mail
-    public void enviarmail(){
-        rec = "santiago-perez-perez@hotmail.com";
-        subject = "Esto es una prueba";
-
-        Properties props = new Properties();
-        props.put("mail.smtp.host", "smtp.gmail.com");
-        props.put("mail.smtp.socketFactory.port", "465");
-        props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
-        props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.port", "465");
-
-        session = Session.getDefaultInstance(props, new Authenticator() {
-            protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication("sanpp96@gmail.com", "Suputamadre96");
-            }
-        });
-
-        pdialog = ProgressDialog.show(context, "", "Enviando Mail...", true);
-
-        Servicio.RetreiveFeedTask task = new Servicio.RetreiveFeedTask();
-        task.execute();
-    }
-
-    class RetreiveFeedTask extends AsyncTask<String, Void, String> {
-
-        @Override
-        protected String doInBackground(String... params) {
-
-            try{
-                Message message = new MimeMessage(session);
-                message.setFrom(new InternetAddress("testfrom354@gmail.com"));
-                message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(rec));
-                message.setSubject(subject);
-                message.setContent(textMessage, "text/html; charset=utf-8");
-                Transport.send(message);
-            } catch(MessagingException e) {
-                e.printStackTrace();
-            } catch(Exception e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-            Toast.makeText(getApplicationContext(), "Mensaje enviado", Toast.LENGTH_LONG).show();
-        }
-    }
-    //Mail
 }
