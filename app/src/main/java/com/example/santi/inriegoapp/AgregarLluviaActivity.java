@@ -35,6 +35,7 @@ import com.example.santi.inriegoapp.Adapters.SeleccionPivotAdapter;
 import com.example.santi.inriegoapp.Objects.Pivot;
 import com.example.santi.inriegoapp.sqlite.BD;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -123,7 +124,7 @@ public class AgregarLluviaActivity extends AppCompatActivity {
                 dyear=year;
                 dmonth=month;
                 dday=dayOfMonth;
-                fecha.setText(dayOfMonth+"/"+month+"/"+year);
+                fecha.setText(year+"-"+month+"-"+dayOfMonth);
             }
         };
         db1=new BD(AgregarLluviaActivity.this," inriego.db",null,1);
@@ -139,16 +140,20 @@ public class AgregarLluviaActivity extends AppCompatActivity {
                         Pivot p = Seleccionados.get(i);
                         ContentValues lluvia = new ContentValues();
                         JSONObject reg = new JSONObject();
+                        JSONArray reg2=new JSONArray();
+
                         flag=false;
                         if (p.ischecked()) {
                             try {
                                 flag=true;
                                 reg.put("Token", token);
-                                reg.put("IrrigationUnitId", i);
+                                reg2.put(i);
+                                reg.put("IrrigationUnitId", reg2);
                                 reg.put("Milimeters", mm.getText());
                                 reg.put("Date", fecha.getText());
                                 lluvia.put("JSON", String.valueOf(reg));
                                 lluvia.put("REG", String.valueOf(timestamp));
+                                lluvia.put("TIPO",1);
                                 db.insert("INGRESOS", null, lluvia);
 
                             } catch (JSONException e1) {

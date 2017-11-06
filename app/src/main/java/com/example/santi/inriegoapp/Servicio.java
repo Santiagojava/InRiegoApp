@@ -164,39 +164,41 @@ String res ="";
         @Override
         protected Boolean doInBackground(String... params) {
             String token="";
-
+            Log.d(TAG, "1 ");
 
             try {
-
+                Log.d(TAG, "2 ");
                 BD db1 = new BD(getApplicationContext(), " inriego.db", null, 1);
                 SQLiteDatabase db = db1.getWritableDatabase();
                 ContentValues datos = new ContentValues();
 for (int i=0;i<3;i++) {
+    Log.d(TAG, "3 ");
     Cursor c = db.rawQuery("SELECT * FROM INGRESOS", null);
 flag = false;
     if (c.moveToFirst()) {
-        do {
+        do {Log.d(TAG, "4 ");
             JSONObject reg = new JSONObject();
-            String js = c.getString(0);
-            try {
+            String js = c.getString(1);
+            Log.d(TAG, js);
+            try {Log.d(TAG, "5 ");
                 reg = new JSONObject(js);
                 URL url;
-                if (reg.get("TIPO").toString()== "1")
+                Log.d(TAG, "6 ");
+                if (c.getInt(3)== 0)
                     url = new URL("http://iradvisor.pgwwater.com.uy:9080/api/IrrigationData/AddIrrigation");
                 else
                     url = new URL("http://iradvisor.pgwwater.com.uy:9080/api/IrrigationData/AddRain");
 
+
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("POST");
-                conn.setRequestProperty("Content-Type", "application/json;");
-
-
+                conn.setRequestProperty("Content-Type", "application/json;charset=utf-8");
                 OutputStreamWriter out = new OutputStreamWriter(conn.getOutputStream());
                 out.write(String.valueOf(reg));
                 out.close();
                 int responseCode = conn.getResponseCode();
-
                 BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+
 
                 String inputLine;
                 StringBuffer response = new StringBuffer();
@@ -207,8 +209,11 @@ flag = false;
                 in.close();
                 res = response.toString();
                 JSONObject r = new JSONObject(res);
-                if (r.get("IsOk").toString() == "true")
+                Log.d(TAG, "6");
+                if (r.get("IsOk").toString() == "true") {
                     flag = true;
+                    Log.d(TAG, "doInBackground: "+r.get("IsOk").toString());
+                }
                 else
                     flag = false;
 
