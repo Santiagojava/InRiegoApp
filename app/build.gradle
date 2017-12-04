@@ -23,8 +23,16 @@ android {
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
+        //testApplicationId "com.example.santi.inriegoapp"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        //testInstrumentationRunner "android.test.InstrumentationTestRunner"
     }
+    /*
+    testOptions{
+        reportDir = "$project.BuildDir/results/report"
+        resultsDir = "$project.BuildDir/results"
+    }
+    */
     buildTypes {
         release {
             minifyEnabled false

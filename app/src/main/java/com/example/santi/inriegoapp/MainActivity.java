@@ -162,4 +162,8 @@ SharedPreferences sh= PreferenceManager.getDefaultSharedPreferences(getApplicati
             super.onProgressUpdate(values);
         }
     }
+    public boolean LoginTesting(){
+
+        return true;
+    }
 }

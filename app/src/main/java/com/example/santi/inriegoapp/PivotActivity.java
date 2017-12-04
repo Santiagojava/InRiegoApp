@@ -2,10 +2,12 @@ package com.example.santi.inriegoapp;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.AppBarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -141,8 +143,16 @@ a.putStringArrayList("pivots",Str);
                 Intent i = new Intent(getApplicationContext(), HoraActivity.class);
                 startActivity(i);
                 break;
+            case R.id.logout:
+                SharedPreferences sh= PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                SharedPreferences.Editor ed= sh.edit();
+                ed.remove("user");
+                ed.remove("pass");
+                ed.commit();
+                Intent hola = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(hola);
+                break;
         }
-
             return true;
     }
 }
