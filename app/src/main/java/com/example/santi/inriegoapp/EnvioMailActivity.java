@@ -54,7 +54,7 @@ public class EnvioMailActivity extends AppCompatActivity {
 
         session = Session.getDefaultInstance(props, new Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication("sanpp96@gmail.com", "Suputamadre96");
+                return new PasswordAuthentication("", "");
             }
         });
 
